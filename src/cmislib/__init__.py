@@ -16,6 +16,29 @@
 #      specific language governing permissions and limitations
 #      under the License.
 #
+
+"""
+Patch httplib2 before the its import to work around a bug into alfresco
+https://issues.alfresco.com/jira/browse/MNT-15819
+"""
+import wrapt
+@wrapt.patch_function_wrapper('httplib2', '_parse_www_authenticate')
+def wrapper(wrapped, instance, args, kwargs):
+    headers = kwargs.get('headers') or args[0]
+    headername = kwargs.get('headername') or  args[1]
+    if headername == 'www-authenticate' and headers.has_key(headername):
+        authenticate = headers[headername].strip()
+        if len(authenticate.split(" ")) < 2:
+            # A BUG into alfresco generates non RFC compliant
+            # 'www-authenticate' header
+            # https://issues.alfresco.com/jira/browse/MNT-15819
+            # work around this bug and but force Basic auth into the supported
+            # authentication
+            authenticate = authenticate + ' , Basic realm=""'
+            headers[headername] = authenticate
+            return wrapped(headers, headername)
+    return wrapped(*args, **kwargs)
+
 """
 Define package contents so that they are easy to import.
 """

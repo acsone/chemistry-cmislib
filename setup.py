@@ -30,7 +30,8 @@ setup(
     version = version,
     install_requires = [
         'iso8601',
-        'httplib2'
+        'httplib2',
+        'wrapt',
         ],
     author = 'Apache Chemistry Project',
     author_email = 'dev@chemistry.apache.org',
