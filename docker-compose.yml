@@ -1,0 +1,67 @@
+ersion: '2'
+
+services:
+  alfresco:
+    image: jeci/alfresco-platform:5.2.g
+    environment:
+      CATALINA_OPTS: "-Xmx1G -XX:+UseConcMarkSweepGC"
+    networks:
+      - internal
+    ports:
+      - "8080:8080"
+    volumes:
+      - "alf_logs:/usr/local/tomcat/logs/"
+      - "alf_data:/opt/alf_data"
+    tmpfs:
+      - /tmp
+      - /usr/local/tomcat/temp/
+      - /usr/local/tomcat/work/
+
+  share:
+    image: jeci/alfresco-share:5.2.f
+    environment:
+      CATALINA_OPTS: "-Xmx1G -XX:+UseConcMarkSweepGC"
+    depends_on:
+      - alfresco
+    networks:
+      - internal
+    ports:
+      - "8081:8080"
+    volumes:
+      - "share_logs:/usr/local/tomcat/logs/"
+    tmpfs:
+      - /tmp
+      - /usr/local/tomcat/temp/
+      - /usr/local/tomcat/work/
+
+  solr:
+    image: jeci/alfresco-solr:5.2.g
+    environment:
+      CATALINA_OPTS: "-Xmx1G -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:G1HeapRegionSize=8m -XX:MaxGCPauseMillis=200"
+    depends_on:
+      - alfresco
+    networks:
+      - internal
+    volumes:
+      - "solr_logs:/usr/local/tomcat/logs/"
+      - "solr_data:/opt/solr_data"
+    tmpfs:
+      - /tmp
+      - /usr/local/tomcat/temp/
+      - /usr/local/tomcat/work/
+
+  libreoffice:
+    image: jeci/alfresco-libreoffice:5.2.7
+    restart: always
+    networks:
+      - internal
+
+volumes:
+  alf_logs:
+  alf_data:
+  share_logs:
+  solr_logs:
+  solr_data:
+
+networks:
+  internal:

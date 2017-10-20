@@ -1,0 +1,30 @@
+sudo: required
+
+cache: pip
+
+language: python
+
+python:
+  - "2.7"
+
+services:
+  - postgresql
+  - docker
+
+install:
+  - pip install tox-travis
+  - pip install codecov
+  - pip install codeclimate-test-reporter
+
+before_script:
+  - psql -c "CREATE DATABASE alfresco;" -U postgres
+  - psql -c "CREATE USER alfresco WITH PASSWORD 'alfresco';" -U postgres
+  - docker-compose up
+
+script:
+  - tox
+
+after_success:
+  - codecov
+  - codeclimate-test-reporter
+
