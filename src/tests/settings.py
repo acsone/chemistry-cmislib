@@ -52,7 +52,7 @@ EXT_ARGS = {}
 # the trailing slash.
 #TEST_ROOT_PATH = '/default-domain/workspaces/cmislib'  # No trailing slash
 #TEST_ROOT_PATH = '/cmislib'  # No trailing slash
-TEST_ROOT_PATH = ''
+TEST_ROOT_PATH = '/'
 # Binary test files. Assumed to exist in the same dir as this python script
 TEST_BINARY_1 = '250px-Cmis_logo.png'
 TEST_BINARY_2 = 'sample-a.pdf'
