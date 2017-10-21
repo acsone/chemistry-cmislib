@@ -31,7 +31,7 @@ install:
 
 before_script:
   - git clone https://github.com/keensoft/alfresco-docker-template
-  - cd templates/201702-GA && docker-compose up -d
+  - cd alfresco-docker-template/templates/201702-GA && docker-compose up -d
   - until $(curl -sSf http://localhost/alfresco  -o /dev/null); printf '.' & do sleep 5 ; done
   - wget http://localhost/alfresco/api/-default-/cmis/versions/1.1/browser --password=admin --user=admin
   - cat browser
