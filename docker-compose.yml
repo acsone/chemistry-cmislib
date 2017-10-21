@@ -5,6 +5,8 @@ services:
     image: jeci/alfresco-platform:5.2.g
     environment:
       CATALINA_OPTS: "-Xmx1G -XX:+UseConcMarkSweepGC"
+    depends_on:
+      - postgresql
     networks:
       - internal
     ports:
@@ -56,12 +58,24 @@ services:
     networks:
       - internal
 
+  postgresql:
+    image: postgres:9.4
+    environment:
+      - POSTGRES_DB=alfresco
+      - POSTGRES_PASSWORD=alfresco
+      - POSTGRES_USER=alfresco
+    networks:
+      - internal
+    volumes:
+      - "pgsql_data:/var/lib/postgresql/data"
+
 volumes:
   alf_logs:
   alf_data:
   share_logs:
   solr_logs:
   solr_data:
+  pgsql_data:
 
 networks:
   internal:
