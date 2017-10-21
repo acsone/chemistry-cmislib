@@ -3,7 +3,7 @@ sudo: required
 cache: 
  pip: true
  bundler: true
-  directories:
+ directories:
     - $HOME/docker
 
 before_cache:
