@@ -8,8 +8,8 @@ services:
         - INITIAL_PASS=admun
         - CONTAINER_FUNCTION=tomcat
         - ALF_1=db.url.EQ.jdbc:postgresql:\/\/localhost:5432\/alfresco1
-        - ALF_2=db.password.EQ.alfresco  
-        - ALF_3=db.username.EQ.alfresco
+        - ALF_2=db.password.EQ.
+        - ALF_3=db.username.EQ.lmi
         - ALF_4=index.subsystem.name.EQ.solr6
         - ALF_5=solr.secureComms.EQ.none
         - ALF_6=solr.host.EQ.solr6
