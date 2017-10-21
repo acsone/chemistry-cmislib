@@ -2,15 +2,6 @@ sudo: required
 
 cache: 
  pip: true
- bundler: true
- directories:
-    - $HOME/docker
-
-before_cache:
-  # Save tagged docker images
-  - >
-    mkdir -p $HOME/docker && docker images -a --filter='dangling=false' --format '{{.Repository}}:{{.Tag}} {{.ID}}'
-    | xargs -n 2 -t sh -c 'test -e $HOME/docker/$1.tar.gz || docker save $0 | gzip -2 > $HOME/docker/$1.tar.gz'
 
 language: python
 
@@ -20,19 +11,17 @@ python:
 services:
   - docker
 
-before_install:
-  # Load cached docker images
-  - if [[ -d $HOME/docker ]]; then ls $HOME/docker/*.tar.gz | xargs -I {file} sh -c "zcat {file} | docker load"; fi
-
 install:
   - pip install tox-travis
   - pip install codecov
   - pip install codeclimate-test-reporter
 
 before_script:
+  # install alfresco
   - git clone https://github.com/keensoft/alfresco-docker-template
   - cd alfresco-docker-template/templates/201702-GA && docker-compose up -d
   - cd $TRAVIS_BUILD_DIR
+  # wait alfresco startup complete
   - until $(curl -sSf http://localhost/alfresco  -o /dev/null); do sleep 5 ; done
   - wget http://localhost/alfresco/api/-default-/cmis/versions/1.1/browser --password=admin --user=admin
   - cat browser
