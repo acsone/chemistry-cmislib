@@ -22,6 +22,7 @@ before_script:
   - docker-compose up -d
   - until $(curl -sSf http://localhost:8080/alfresco  -o /dev/null); printf '.' & do sleep 5 ; done
   - wget http://localhost:8080/alfresco/api/-default-/cmis/versions/1.1/browser --password=admin --user=admin
+  - cat browser
 
 script:
   - tox
