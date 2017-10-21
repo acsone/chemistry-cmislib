@@ -3,6 +3,7 @@ version: '2'
 services:
   alfresco:
     image: jeci/alfresco-platform:5.2.g
+    hostname: localhost
     environment:
       CATALINA_OPTS: "-Xmx1G -XX:+UseConcMarkSweepGC"
     depends_on:

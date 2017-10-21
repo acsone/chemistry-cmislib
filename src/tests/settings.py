@@ -32,7 +32,7 @@ from cmislib.browser.binding import BrowserBinding
 #REPOSITORY_URL = 'http://localhost:8080/alfresco/api/-default-/cmis/versions/1.1/atom' # Alfresco 4.2 CMIS 1.1 Atom
 #REPOSITORY_URL = 'http://cmis.demo.nuxeo.org/nuxeo/atom/cmis' # Nuxeo demo
 #REPOSITORY_URL = 'http://localhost:8080/nuxeo/atom/cmis' # Nuxeo local
-REPOSITORY_URL = 'http://localhost:8080/alfresco/api/-default-/cmis/versions/1.1/browser' # Alfresco 4.2 CMIS 1.0 Atom
+REPOSITORY_URL = 'http://localhost:80/alfresco/api/-default-/cmis/versions/1.1/browser' # Alfresco 4.2 CMIS 1.0 Atom
 #REPOSITORY_URL = 'http://localhost:8080/alfresco/api/-default-/cmis/versions/1.1/atom' # Alfresco 4.2 CMIS 1.0 Atom
 
 # Choose a binding. The AtomPubBinding is the only one you should really be using right now
