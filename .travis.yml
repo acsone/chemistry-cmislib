@@ -19,7 +19,8 @@ install:
 before_script:
   - psql -c "CREATE DATABASE alfresco;" -U postgres
   - psql -c "CREATE USER alfresco WITH PASSWORD 'alfresco';" -U postgres
-  - docker-compose up
+  - docker-compose up -d
+  - until $(curl -sSf http://localhost:8080/alfresco  -o /dev/null); do sleep 5 ; done
 
 script:
   - tox
